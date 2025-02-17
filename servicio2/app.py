@@ -15,7 +15,7 @@ def get_meteo(municipioid):
     print(response.status_code)
 
     if response.status_code == 200:
-        data = jsonify(response)
+        data = response.json
         meteo_data = {
             "temperatura_actual": data.get("temperatura_actual", "No disponible"),
             "temperaturas_max_min": {
