@@ -13,18 +13,28 @@ def get_meteo(municipioid):
     response = requests.get(url)
     print(response.status_code)
 
-    # Verificar si la solicitud fue exitosa
-    if response.status_code == 200:
-        data = jsonify(response)  # Convertir la respuesta a JSON
+        if response.status_code == 200:
+            data = response.json()
 
-        # Guardar los datos en un archivo JSON
-        with open("tiempo_municipio.json", "w", encoding="utf-8") as file:
-            file.write(data)
+            meteo_data = {
+                "temperatura_actual": data.get("temperatura_actual", "No disponible"),
+                "temperaturas_max_min": {
+                    "max": data.get("temperaturas", {}).get("max", "No disponible"),
+                    "min": data.get("temperaturas", {}).get("min", "No disponible"),
+                },
+                "humedad": data.get("humedad", "No disponible"),
+                "viento": data.get("viento", "No disponible"),
+                "precipitacion": data.get("precipitacion", "No disponible"),
+                "lluvia": data.get("lluvia", "No disponible"),
+            }
 
-        print("Datos guardados en 'tiempo_municipio.json'")
-    else:
-        print(f"Error al acceder a la API: {response.status_code}")
+            return jsonify(meteo_data)
+        
+        else:
+            return jsonify({"error": "No se pudo obtener la información del clima"}), 500
+    
+    except requests.exceptions.RequestException as e:
+        return jsonify({"error": f"Error en la conexión: {str(e)}"}), 500
 
-
-    if __name__ == '__main__':
-        app2.run(port=5001)
+if __name__ == '__main__':
+    app2.run(port=5001)
