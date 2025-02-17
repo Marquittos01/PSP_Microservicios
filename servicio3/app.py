@@ -5,7 +5,7 @@ app3 = Flask(__name__)
 
 @app3.route('/<int:municipioid>/demo', methods=['GET'])
 def get_demo(municipioid):
-    with open("municipio.json") as file:
+    with open("./servicio3/municipio.json") as file:
         data = json.load(file)
 
     if data["MUNICIPIOID"] == municipioid:
