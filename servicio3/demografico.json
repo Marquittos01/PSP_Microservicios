@@ -1,5 +1,14 @@
 {
     "MUNICIPIOID":18140,
     "CODPROV":"18",
-    "NOMBRE":"Motril"
+    "NOMBRE":"Motril",
+    "temperatura_actual": "20",
+    "temperaturas": {
+        "max": "22",
+        "min": "10"
+    },
+    "humedad": "51",
+    "viento": "6",
+    "precipitacion": "0",
+    "lluvia": ""
 }
