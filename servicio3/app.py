@@ -3,6 +3,7 @@ import json
 
 app3 = Flask(__name__)
 
+
 @app3.route('/<int:municipioid>/demo', methods=['GET'])
 def get_demo(municipioid):
     with open("./servicio3/municipio.json") as file:
@@ -12,6 +13,7 @@ def get_demo(municipioid):
         return jsonify(data)
     else:
         return jsonify({"error": "Municipio no encontrado"}), 404
+
 
 if __name__ == '__main__':
     app3.run(port=5002)
