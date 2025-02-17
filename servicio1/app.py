@@ -6,7 +6,7 @@ app1 = Flask(__name__)
 # función
 @app1.route('/<int:municipioid>/geo', methods=['GET'])
 def get_geo(municipioid):
-    with open("municipio.json") as file:
+    with open("./servicio1/municipio.json") as file:
         data = json.load(file)
         
     if (data["MUNICIPIOID"] == municipioid):

@@ -3,10 +3,11 @@ import requests
 
 app2 = Flask(__name__)
 
+@app2.route('/<int:municipioid>/meteo', methods=['GET'])
 # función
 def get_meteo(municipioid):
     # URL de la API
-    url = "https://www.el-tiempo.net/api/json/v2/provincias/18/municipios/18903"
+    url = f"https://www.el-tiempo.net/api/json/v2/provincias/18/municipios/{municipioid}", 
 
     # Hacer la solicitud GET
     response = requests.get(url)
