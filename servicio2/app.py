@@ -3,27 +3,35 @@ import requests
 
 app2 = Flask(__name__)
 
-# función
+@app2.route('/<int:municipioid>/meteo', methods=['GET'])
 def get_meteo(municipioid):
-    # URL de la API
-    url = "https://www.el-tiempo.net/api/json/v2/provincias/18/municipios/18903"
+    url = f'https://www.el-tiempo.net/api/json/v2/provincias/18/municipios/{municipioid}'
+    
+    try:
+        response = requests.get(url)
 
-    # Hacer la solicitud GET
-    response = requests.get(url)
-    print(response.status_code)
+        if response.status_code == 200:
+            data = response.json()
 
-    # Verificar si la solicitud fue exitosa
-    if response.status_code == 200:
-        data = jsonify(response)  # Convertir la respuesta a JSON
+            meteo_data = {
+                "temperatura_actual": data.get("temperatura_actual", "No disponible"),
+                "temperaturas_max_min": {
+                    "max": data.get("temperaturas", {}).get("max", "No disponible"),
+                    "min": data.get("temperaturas", {}).get("min", "No disponible"),
+                },
+                "humedad": data.get("humedad", "No disponible"),
+                "viento": data.get("viento", "No disponible"),
+                "precipitacion": data.get("precipitacion", "No disponible"),
+                "lluvia": data.get("lluvia", "No disponible"),
+            }
 
-        # Guardar los datos en un archivo JSON
-        with open("tiempo_municipio.json", "w", encoding="utf-8") as file:
-            file.write(data)
+            return jsonify(meteo_data)
+        
+        else:
+            return jsonify({"error": "No se pudo obtener la información del clima"}), 500
+    
+    except requests.exceptions.RequestException as e:
+        return jsonify({"error": f"Error en la conexión: {str(e)}"}), 500
 
-        print("Datos guardados en 'tiempo_municipio.json'")
-    else:
-        print(f"Error al acceder a la API: {response.status_code}")
-
-
-    if __name__ == '__main__':
-        app2.run(port=5001)
+if __name__ == '__main__':
+    app2.run(port=5001)
