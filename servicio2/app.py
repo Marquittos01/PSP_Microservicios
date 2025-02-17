@@ -15,7 +15,10 @@ def get_meteo(municipioid):
     print(response.status_code)
 
     if response.status_code == 200:
-        data = response.json
+        # Obtener los datos en formato JSON de la respuesta
+        data = response.json()  # Asegúrate de llamar a .json() para obtener el diccionario
+
+        # Extraer los datos del clima
         meteo_data = {
             "temperatura_actual": data.get("temperatura_actual", "No disponible"),
             "temperaturas_max_min": {
@@ -31,6 +34,7 @@ def get_meteo(municipioid):
     
     else:
         return jsonify({"error": "No se pudo obtener la información del clima"}), 500
+
 
 if __name__ == '__main__':
     app2.run(port=5001)
