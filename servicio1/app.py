@@ -9,7 +9,7 @@ def get_geo(municipioid):
     with open("./municipio.json") as file:
         data = json.load(file)
         
-    if (data["MUNICIPIOID"] == municipioid):
+    if data["MUNICIPIOID"] == municipioid:
         return jsonify(data)
     else:
         return jsonify({"error": "Municipio no encontrado"}), 404
