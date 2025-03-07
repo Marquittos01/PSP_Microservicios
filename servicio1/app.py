@@ -16,4 +16,4 @@ def get_geo(municipioid):
 
 
 if __name__ == '__main__':
-    app1.run(port=5000)
+    app1.run(host='0.0.0.0', port=5000)

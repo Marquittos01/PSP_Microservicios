@@ -37,4 +37,4 @@ def get_meteo(municipioid):
 
 
 if __name__ == '__main__':
-    app2.run(port=5001)
+    app2.run(host='0.0.0.0', port=5001)

@@ -10,7 +10,7 @@ def get_combined(municipioid, parametro1, parametro2):
         data = {}
 
         if parametro1 == 'geo' or parametro2 == 'geo':
-            geo_url = f'http://localhost:5000/{municipioid}/geo'
+            geo_url = f'http://servicio1:5000/{municipioid}/geo'
             geo_response = requests.get(geo_url)
             if geo_response.status_code == 200:
                 data['geo'] = geo_response.json()
@@ -18,7 +18,7 @@ def get_combined(municipioid, parametro1, parametro2):
                 data['geo'] = "No se encontró información geográfica"
 
         if parametro1 == 'meteo' or parametro2 == 'meteo':
-            meteo_url = f'http://localhost:5001/{municipioid}/weather'
+            meteo_url = f'http://servicio2:5001/{municipioid}/meteo'
             meteo_response = requests.get(meteo_url)
             if meteo_response.status_code == 200:
                 data['meteo'] = meteo_response.json()
@@ -26,7 +26,7 @@ def get_combined(municipioid, parametro1, parametro2):
                 data['meteo'] = "No se encontró información meteorológica"
 
         if parametro1 == 'demo' or parametro2 == 'demo':
-            demo_url = f'http://localhost:5002/{municipioid}/demo'
+            demo_url = f'http://servicio3:5002/{municipioid}/demo'
             demo_response = requests.get(demo_url)
             if demo_response.status_code == 200:
                 data['demo'] = demo_response.json()
@@ -39,4 +39,4 @@ def get_combined(municipioid, parametro1, parametro2):
         return jsonify({"error": "Hubo un error al procesar la solicitud"}), 500
 
 if __name__ == '__main__':
-    app4.run(port=5003)
+    app4.run(host='0.0.0.0', port=5003)

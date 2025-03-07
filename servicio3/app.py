@@ -16,4 +16,4 @@ def get_demo(municipioid):
 
 
 if __name__ == '__main__':
-    app3.run(port=5002)
+    app3.run(host='0.0.0.0', port=5002)

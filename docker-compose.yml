@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  servicio1:
+    build:
+      context: ./servicio1
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./servicio1:/app
+    networks:
+      - microservicios-network
+
+  servicio2:
+    build:
+      context: ./servicio2
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./servicio2:/app
+    networks:
+      - microservicios-network
+
+  servicio3:
+    build:
+      context: ./servicio3
+      dockerfile: Dockerfile
+    ports:
+      - "5002:5002"
+    volumes:
+      - ./servicio3:/app
+    networks:
+      - microservicios-network
+
+  servicio4:
+    build:
+      context: ./servicio4
+      dockerfile: Dockerfile
+    ports:
+      - "5003:5003"
+    volumes:
+      - ./servicio4:/app
+    networks:
+      - microservicios-network
+
+networks:
+  microservicios-network:
+    driver: bridge
